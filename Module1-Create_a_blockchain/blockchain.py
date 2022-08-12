@@ -58,4 +58,16 @@ app = Flask(__name__)
 Blockchain = Blockchain()
 
 # Mining a new block
-@app.route("/mine_block")
+@app.route('/mine_block', methods=['GET'])
+def mine_block():
+	previous_block = blockchain.get_previous_block()
+    previous_proof = previous_block['proof']
+    proof = blockchain.proof_of_work(pervious_proof)
+    previous_hash = blockchain.hash(previous_block)
+    block = blockahin.create_block(proof, previous_hash)
+    response = {'message' 		: 'congratulations, you just mined a block!',
+    			'index' 		: block['index'],
+                'timestamp' 	: block['timestamp'],
+                'proof'			: block['proof'],
+                'privious_hash' : block['privious_hash']}
+	return jsonify(response), 200
